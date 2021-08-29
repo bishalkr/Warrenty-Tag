@@ -7,14 +7,18 @@
 
 import UIKit
 
-class CategoryViewController: UIViewController, UITableViewDataSource {
+class CategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var categoryArray : [Category]?
     let mobileCell = Category(categoryTitle: "Mobile and Accesories", categorySymbol: UIImage(systemName: "phone.fill")!, dateOfCategoryCreation: Date())
     
-    let laptopCell = Category(categoryTitle: "Laptops", categorySymbol: UIImage(systemName: "laptopcomputer")!, dateOfCategoryCreation: Date())
-    let earphoneCell = Category(categoryTitle: "Earphones", categorySymbol: UIImage(systemName: "earpods")!, dateOfCategoryCreation: Date())
-    let electroniCell = Category(categoryTitle: "Other Electronics Applicances ", categorySymbol: UIImage(systemName: "tv.fill")!, dateOfCategoryCreation: Date())
+    let laptopCell = Category(categoryTitle: "Laptop and Accesories", categorySymbol: UIImage(systemName: "laptopcomputer")!, dateOfCategoryCreation: Date())
+    let bandCell = Category(categoryTitle: "Smartwatch and Band ", categorySymbol: UIImage(systemName: "applewatch.watchface")!, dateOfCategoryCreation: Date())
+    
+    let earphoneCell = Category(categoryTitle: "Earphones and Headphpones", categorySymbol: UIImage(systemName: "airpodspro")!, dateOfCategoryCreation: Date())
+    let cameraCell = Category(categoryTitle: "Camera", categorySymbol: UIImage(systemName: "camera.fill")!, dateOfCategoryCreation: Date())
+    let homeCell = Category(categoryTitle: "Home and Kitchen Appliances", categorySymbol: UIImage(systemName: "house.fill")!, dateOfCategoryCreation: Date())
+    let electroniCell = Category(categoryTitle: "Other electronics Applicances", categorySymbol: UIImage(systemName: "network")!, dateOfCategoryCreation: Date())
     let bagCell = Category(categoryTitle: "Bags and Luggages", categorySymbol: UIImage(systemName: "bag.fill")!, dateOfCategoryCreation: Date())
     let medicinesCell = Category(categoryTitle: "Meds", categorySymbol: UIImage(systemName: "cross.case.fill")!, dateOfCategoryCreation: Date())
     
@@ -39,8 +43,9 @@ class CategoryViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        categoryArray = [mobileCell,laptopCell,earphoneCell,electroniCell,bagCell,medicinesCell]
+        categoryArray = [mobileCell,laptopCell,bandCell,earphoneCell,cameraCell,homeCell,electroniCell,bagCell,medicinesCell]
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.reloadData()
         
 
@@ -66,6 +71,19 @@ class CategoryViewController: UIViewController, UITableViewDataSource {
         }
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "itemSegue", sender: indexPath)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! ItemViewController
+        if let indexPath = tableView.indexPathForSelectedRow{
+            destinationVC.selectedCategory = categoryArray?[indexPath.row]
+
+    }
     }
     
 

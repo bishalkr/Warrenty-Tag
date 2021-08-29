@@ -9,7 +9,10 @@ import Foundation
 import UIKit
  struct Category
  {
-    var categoryTitle: String
-    var categorySymbol: UIImage
-    var dateOfCategoryCreation : Date
+    var categoryTitle: String?
+    var categorySymbol: UIImage?
+    var dateOfCategoryCreation : Date?
+    var itemArray : [Items]?
+    
+    
  }

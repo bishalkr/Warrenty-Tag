@@ -80,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1149.2753623188407" y="16.741071428571427"/>
+            <point key="canvasLocation" x="533" y="5"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="fMM-oD-5EP">
@@ -156,7 +156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDA-Hg-dOP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2035" y="-230"/>
+            <point key="canvasLocation" x="1638" y="-265"/>
         </scene>
         <!--My Categories-->
         <scene sceneID="jdM-Jq-cHA">
@@ -171,24 +171,24 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryPrototype" textLabel="4gt-TE-Q5w" imageView="a3B-Y1-OyJ" rowHeight="80" style="IBUITableViewCellStyleDefault" id="BwZ-YZ-5Er">
-                                        <rect key="frame" x="0.0" y="24.5" width="414" height="80"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryPrototype" textLabel="4gt-TE-Q5w" imageView="a3B-Y1-OyJ" rowHeight="94" style="IBUITableViewCellStyleDefault" id="BwZ-YZ-5Er">
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="94"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BwZ-YZ-5Er" id="boI-DX-34D">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Laptops" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4gt-TE-Q5w">
-                                                    <rect key="frame" x="115.5" y="0.0" width="261" height="80"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Mobiles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4gt-TE-Q5w">
+                                                    <rect key="frame" x="57.25" y="0.0" width="319.25" height="94"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a3B-Y1-OyJ">
-                                                    <rect key="frame" x="20" y="0.0" width="80.5" height="80"/>
+                                                    <rect key="frame" x="18.25" y="36" width="24" height="22"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <imageReference key="image" image="d" symbolScale="large"/>
+                                                    <imageReference key="image" image="phone.fill" catalog="system" symbolScale="large"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                 </imageView>
                                             </subviews>
@@ -222,12 +222,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Dm-jf-lrf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2978.2608695652175" y="-85.044642857142847"/>
+            <point key="canvasLocation" x="2735" y="-85"/>
         </scene>
         <!--My Items-->
         <scene sceneID="WEe-VQ-nyB">
             <objects>
-                <viewController id="40W-Av-YNI" sceneMemberID="viewController">
+                <viewController id="40W-Av-YNI" customClass="ItemViewController" customModule="Warrenty_Tag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jr0-2w-hjs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -254,6 +254,7 @@
                     <navigationItem key="navigationItem" title="My Items" id="pBf-Xx-VmU">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3Uq-m5-4U9">
                             <connections>
+                                <action selector="addButtonPressed:" destination="40W-Av-YNI" id="Mr2-mu-dmJ"/>
                                 <segue destination="qHM-Yd-6qt" kind="presentation" identifier="additemSegue" id="Kqu-9b-ccB"/>
                             </connections>
                         </barButtonItem>
@@ -264,12 +265,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YoV-gB-BqW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3962.3188405797105" y="-99.107142857142847"/>
+            <point key="canvasLocation" x="3672" y="-98"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit View Controller-->
         <scene sceneID="oM9-ku-GnB">
             <objects>
-                <viewController id="qHM-Yd-6qt" sceneMemberID="viewController">
+                <viewController id="qHM-Yd-6qt" customClass="EditViewController" customModule="Warrenty_Tag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bqm-zf-Ygq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -278,15 +279,22 @@
                                 <rect key="frame" x="19" y="20" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="qHM-Yd-6qt" eventType="touchUpInside" id="Or6-gQ-ibq"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgh-xE-rYT">
                                 <rect key="frame" x="353" y="20" width="37" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="doneButtonPressed:" destination="qHM-Yd-6qt" eventType="touchUpInside" id="rXH-CX-FVX"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AAf-Ln-kRz">
                                 <rect key="frame" x="0.0" y="58" width="414" height="234"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Product's Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pde-Gy-j2O">
                                 <rect key="frame" x="17" y="358" width="379" height="34"/>
@@ -304,7 +312,7 @@
                                 <rect key="frame" x="19" y="508" width="379" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Additional Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DEx-Rt-9q7">
                                 <rect key="frame" x="20" y="564" width="379" height="34"/>
@@ -322,21 +330,25 @@
                                 <rect key="frame" x="169" y="300" width="72" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add Photo"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRZ-qn-hAP">
-                                <rect key="frame" x="50" y="661" width="68" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="1 month"/>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="qHM-Yd-6qt" eventType="touchUpInside" id="nx8-KD-0gT"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnL-3h-tGN">
                                 <rect key="frame" x="249" y="661" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="1 day"/>
+                                <connections>
+                                    <action selector="notifiedButton:" destination="qHM-Yd-6qt" eventType="touchUpInside" id="u0d-im-1ci"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQf-Mt-Gn9">
                                 <rect key="frame" x="153" y="661" width="88" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="1 week"/>
+                                <connections>
+                                    <action selector="notifiedButton:" destination="qHM-Yd-6qt" eventType="touchUpInside" id="QXU-8t-Mjd"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" Notified Before" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AM-pY-znu">
                                 <rect key="frame" x="137" y="617" width="141" height="21"/>
@@ -346,18 +358,48 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZl-jZ-6DJ">
-                                <rect key="frame" x="156" y="746" width="98" height="44"/>
+                                <rect key="frame" x="148" y="727" width="98" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Upload Bill"/>
+                                <connections>
+                                    <action selector="uploadButtonPressed:" destination="qHM-Yd-6qt" eventType="touchUpInside" id="hxm-Sh-H78"/>
+                                </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRZ-qn-hAP">
+                                <rect key="frame" x="57" y="661" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="1 month"/>
+                                <connections>
+                                    <action selector="notifiedButton:" destination="qHM-Yd-6qt" eventType="touchUpInside" id="jP9-pA-CZV"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="w9W-f8-MjZ">
+                                <rect key="frame" x="69" y="338" width="290" height="4"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="r0S-IR-Iqm">
+                                <rect key="frame" x="69" y="791" width="290" height="4"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wc9-IC-of0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="KKx-qI-6aA"/>
+                    <connections>
+                        <outlet property="addressTextField" destination="02f-yC-ape" id="tri-sw-tX7"/>
+                        <outlet property="billUploadProgressBar" destination="r0S-IR-Iqm" id="MHa-sU-BnO"/>
+                        <outlet property="dateTextField" destination="coM-H7-eSU" id="0KX-bv-NiE"/>
+                        <outlet property="imageUploadProgressBar" destination="w9W-f8-MjZ" id="tZz-iy-tCG"/>
+                        <outlet property="itemImageView" destination="AAf-Ln-kRz" id="etj-hG-244"/>
+                        <outlet property="nameTextField" destination="pde-Gy-j2O" id="COH-PP-IUe"/>
+                        <outlet property="notesTextField" destination="DEx-Rt-9q7" id="CPY-XJ-eYk"/>
+                        <outlet property="warrentyTextField" destination="uhn-Kn-ZNk" id="fC2-ZO-UEI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GnC-lk-XJa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5245" y="-157"/>
+            <point key="canvasLocation" x="4547.826086956522" y="-119.19642857142857"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dIr-dV-nNl">
@@ -429,7 +471,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QnS-V9-ZXF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6800.0000000000009" y="52.901785714285715"/>
+            <point key="canvasLocation" x="5725" y="-98"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="Qz5-Fc-lud">
@@ -545,7 +587,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xev-WP-D4j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2000.0000000000002" y="438.61607142857139"/>
+            <point key="canvasLocation" x="1686" y="440"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="epg-gy-mJK">
@@ -563,7 +605,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0dE-eN-X2O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="239.13043478260872" y="16.741071428571427"/>
+            <point key="canvasLocation" x="-343" y="5"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -572,7 +614,10 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="341" height="341"/>
-        <image name="d" width="128" height="128"/>
+        <image name="phone.fill" catalog="system" width="128" height="114"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
