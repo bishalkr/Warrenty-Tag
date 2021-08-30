@@ -57,6 +57,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         dateTextField.inputView = datepicker
         
     }
+    
     @objc func donedatePressed()
     {
         let formatter = DateFormatter()
@@ -77,8 +78,6 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         }
     }
     
-    
-
     @IBAction func addButtonPressed(_ sender: UIButton) {
         let alert = UIAlertController(title: "Add Photo", message: nil, preferredStyle: .actionSheet)
         
@@ -115,8 +114,6 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
                 billImageView.image = userImage
             }
         }
-        
-       
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
@@ -124,6 +121,8 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         notify = sender.currentTitle
        
     }
+    
+    
     
     @IBAction func uploadButtonPressed(_ sender: UIButton) {
         
@@ -134,8 +133,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             self.toCheckWhoCalled = 2
             self.present(self.imagePicker, animated: true, completion: nil)
             
-            
-        }))
+            }))
         alert.addAction(UIAlertAction(title: "Choose from Library", style: .default, handler: { (libraryAction) in
             self.imagePicker.sourceType = .photoLibrary
             self.imagePicker.allowsEditing = true
@@ -144,15 +142,10 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         }))
         
         
-    
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
-      
-
-        
-        
-        
+    
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
@@ -162,17 +155,17 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     
     
     
-    
-    
-    
-    
     @IBAction func doneButtonPressed(_ sender: UIButton) {
         imageUploadProgressBar.isHidden = false
         billUploadProgressBar.isHidden = false
-     
-        
-        let itemUploadRef = Storage.storage().reference(withPath: "users/itemImage.jpg")
-        let billUploadRef = Storage.storage().reference(withPath: "users/billImage.jpg")
+        let userID: String
+        let user = Auth.auth().currentUser
+        if let user = user
+        {
+            userID = user.uid
+    
+        let itemUploadRef = Storage.storage().reference(withPath: "users/itemImage/\(userID).jpg")
+        let billUploadRef = Storage.storage().reference(withPath: "users/billImage/\(userID).jpg")
         guard let imageData = itemImageView.image?.jpegData(compressionQuality: 0.75) else {return }
         guard let billImageData = billImageView.image?.jpegData(compressionQuality: 0.75) else {return}
         let uploadMetadata = StorageMetadata.init()
@@ -184,7 +177,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             }
             else
             {
-                print("Upload completed")
+                print("Upload Item completed")
             }
         
        }
@@ -200,7 +193,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
                 }
                 else
                 {
-                    print("Upload completed")
+                    print("Upload Bill completed")
                 }
             }
         
@@ -208,24 +201,40 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             guard let pctThere = snapshot.progress?.fractionCompleted else {return}
             self?.billUploadProgressBar.progress = Float(pctThere)
         }
-        
-            
-        
-        
-        
-     
+           
+         
         newItem.itemName = nameTextField.text ?? ""
-        
         newItem.itemAdress = addressTextField.text ?? ""
         newItem.notes = notesTextField.text
         newItem.notified = notify
+        newItem.purchasedDate = dateTextField.text
         let text = warrentyTextField.text
         newItem.warrentyPeriod = Int(text ?? "0")
+         
+            db.collection("\(userID)/\(selectedCategory!.categoryTitle!)/\(newItem.itemName)").addDocument(data:
+            
+                                                                                                        
+                ["Name": newItem.itemName,
+             "Address" : newItem.itemAdress,
+             "PurchasedDate" : newItem.purchasedDate!,
+             "WarrentyPeriod" : newItem.warrentyPeriod!,
+             "Notified" : newItem.notified! ,
+             "Notes" : newItem.notes!
+             ]) { error in
+            if let e = error
+            { print("Hello my name is BISHAL FIND me")
+                print("Error while upload your data - \(e.localizedDescription)")
+            }
+            else
+            {
+                print("Uploaded your data ")
+            }
+        }
+            
+        }
         
-        
-    
-    
-    
     
 }
+    
 }
+

@@ -12,7 +12,7 @@ struct Items
     var itemImage: UIImage?
     var itemName: String = " "
     var itemAdress: String = " "
-    var purchasedDate: Date?
+    var purchasedDate: String?
     var warrentyPeriod: Int?
     var notes: String?
     var notified: String?

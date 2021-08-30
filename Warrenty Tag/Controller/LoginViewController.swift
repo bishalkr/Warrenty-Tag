@@ -9,8 +9,7 @@ import UIKit
 import Firebase
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-
-
+   
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     override func viewDidLoad() {
@@ -21,7 +20,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-
     @IBAction func loginPressed(_ sender: UIButton) {
         if let email = emailTextField.text , let password = passwordTextField.text
         {
