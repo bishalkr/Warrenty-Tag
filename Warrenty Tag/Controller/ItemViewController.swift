@@ -8,12 +8,28 @@
 
 import UIKit
 
-class ItemViewController: UIViewController {
+class ItemViewController: UIViewController, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+    
     var selectedCategory : Category?
-     override func viewDidLoad() {
+    @IBOutlet weak var tableView: UITableView!
+    override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        
+        
+        
+        tableView.register(UINib(nibName: "ItemViewCell", bundle: nil), forCellReuseIdentifier: "itemCell")
+        
         
     }
+    
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
        performSegue(withIdentifier: "additemSegue", sender: self)

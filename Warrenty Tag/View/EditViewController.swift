@@ -15,9 +15,11 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     let db = Firestore.firestore()
     var toCheckWhoCalled: Int = 0
     let storage = Storage.storage().reference()
+    var dismiss : Int = 0
  
     
-    
+   
+
     @IBOutlet weak var itemImageView: UIImageView!
     var datepicker = UIDatePicker()
     let imagePicker = UIImagePickerController()
@@ -178,12 +180,21 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             else
             {
                 print("Upload Item completed")
+                self.dismiss = self.dismiss + 1
+                print(self.dismiss)
+                if self.dismiss == 3
+                {
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         
        }
         taskReference1.observe(.progress) { [weak self] (snapshot) in
             guard let pctThere = snapshot.progress?.fractionCompleted else {return}
-            self?.imageUploadProgressBar.progress = Float(pctThere)
+            DispatchQueue.main.async {
+                self?.imageUploadProgressBar.progress = Float(pctThere)
+            }
+            
         }
         
            let taskReference2 =  billUploadRef.putData(billImageData, metadata: uploadMetadata) { (downloadMetadata2, error) in
@@ -194,12 +205,17 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
                 else
                 {
                     print("Upload Bill completed")
+                    self.dismiss = self.dismiss + 1
+                    print(self.dismiss)
                 }
             }
         
         taskReference2.observe(.progress) { [weak self] (snapshot) in
             guard let pctThere = snapshot.progress?.fractionCompleted else {return}
-            self?.billUploadProgressBar.progress = Float(pctThere)
+            DispatchQueue.main.async {
+                self?.billUploadProgressBar.progress = Float(pctThere)
+            }
+          
         }
            
          
@@ -210,11 +226,12 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         newItem.purchasedDate = dateTextField.text
         let text = warrentyTextField.text
         newItem.warrentyPeriod = Int(text ?? "0")
+            selectedCategory?.itemArray?.append(newItem)
          
             db.collection("\(userID)/\(selectedCategory!.categoryTitle!)/\(newItem.itemName)").addDocument(data:
             
                                                                                                         
-                ["Name": newItem.itemName,
+             ["Name": newItem.itemName,
              "Address" : newItem.itemAdress,
              "PurchasedDate" : newItem.purchasedDate!,
              "WarrentyPeriod" : newItem.warrentyPeriod!,
@@ -228,12 +245,14 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             else
             {
                 print("Uploaded your data ")
+                self.dismiss = self.dismiss + 1
             }
         }
             
+            
         }
         
-    
+      
 }
     
 }

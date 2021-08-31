@@ -260,6 +260,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="tableView" destination="Liz-FM-efq" id="xS5-ko-3Og"/>
                         <segue destination="lnK-G6-2rX" kind="show" identifier="gotoItemSegue" id="d7h-7t-zo6"/>
                     </connections>
                 </viewController>
@@ -401,10 +402,10 @@
             </objects>
             <point key="canvasLocation" x="4547.826086956522" y="-119.19642857142857"/>
         </scene>
-        <!--View Controller-->
+        <!--Item Details View Controller-->
         <scene sceneID="dIr-dV-nNl">
             <objects>
-                <viewController id="lnK-G6-2rX" sceneMemberID="viewController">
+                <viewController id="lnK-G6-2rX" customClass="ItemDetailsViewController" customModule="Warrenty_Tag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XRW-AQ-TUY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
