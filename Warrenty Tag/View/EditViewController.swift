@@ -207,6 +207,10 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
                     print("Upload Bill completed")
                     self.dismiss = self.dismiss + 1
                     print(self.dismiss)
+                    if self.dismiss == 3
+                    {
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 }
             }
         
@@ -228,7 +232,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         newItem.warrentyPeriod = Int(text ?? "0")
             selectedCategory?.itemArray?.append(newItem)
          
-            db.collection("\(userID)/\(selectedCategory!.categoryTitle!)/\(newItem.itemName)").addDocument(data:
+            db.collection("users/\(userID)/\(selectedCategory!.categoryTitle!)").addDocument(data:
             
                                                                                                         
              ["Name": newItem.itemName,

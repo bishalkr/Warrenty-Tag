@@ -12,13 +12,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
    
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         passwordTextField.delegate  = self
         emailTextField.delegate = self
-        
-    }
+        }
+    
     
     @IBAction func loginPressed(_ sender: UIButton) {
         if let email = emailTextField.text , let password = passwordTextField.text
