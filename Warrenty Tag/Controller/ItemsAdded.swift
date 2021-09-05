@@ -11,5 +11,7 @@ struct ItemsAdded
 {
     let itemName: String
     let warrentyExpire: String
-    let timeLeft: String 
+    let timeLeft: Int
+    let progressStatus : Float
+    
 }

@@ -16,14 +16,11 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     var toCheckWhoCalled: Int = 0
     let storage = Storage.storage().reference()
     var dismiss : Int = 0
- 
-    
-   
-
     @IBOutlet weak var itemImageView: UIImageView!
     var datepicker = UIDatePicker()
     let imagePicker = UIImagePickerController()
     var newItem = Items()
+    var enteredDate = Date()
     
     @IBOutlet weak var billUploadProgressBar: UIProgressView!
     @IBOutlet weak var imageUploadProgressBar: UIProgressView!
@@ -41,13 +38,12 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         createDatePicker()
         
     }
+  
     
     func createDatePicker()
-  
     {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donedatePressed))
         toolbar.setItems([doneButton], animated: true)
         dateTextField.inputAccessoryView = toolbar
@@ -60,22 +56,34 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         
     }
     
+    
     @objc func donedatePressed()
+  
     {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
         formatter.dateFormat = "dd/MM/yyyy"
+        enteredDate = datepicker.date
         
         dateTextField.text = formatter.string(from: datepicker.date)
+        
+        
         self.view.endEditing(true)
     }
     
+    func daysBetween(start: Date, end: Date) -> Int {
+            return Calendar.current.dateComponents([.day], from: start, to: end).day!
+        
+        }
+    
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == dateTextField
+        if textField == warrentyTextField
         {
-         
+           
+            
             
         }
     }
@@ -160,14 +168,85 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBAction func doneButtonPressed(_ sender: UIButton) {
         imageUploadProgressBar.isHidden = false
         billUploadProgressBar.isHidden = false
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        formatter.dateFormat = "dd/MM/yyyy"
+        
+        
+        
+        newItem.itemName = nameTextField.text ?? ""
+        newItem.itemAdress = addressTextField.text ?? ""
+        newItem.notes = notesTextField.text
+        newItem.notified = notify
+        newItem.purchasedDate = dateTextField.text
+        
+        let text = warrentyTextField.text
+        newItem.warrentyPeriod = Int(text ?? "0")
+        
+        
+        
+        
+        var dateComponent = DateComponents()
+        dateComponent.month = newItem.warrentyPeriod
+        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: enteredDate)
+        {
+        newItem.futureDate = formatter.string(from: futureDate)
+        newItem.daysLeft = daysBetween(start: enteredDate, end: futureDate)
+            
+        }
+        
+        
+        
+        
+
+       
+            selectedCategory?.itemArray?.append(newItem)
+         
+            
+            
         let userID: String
         let user = Auth.auth().currentUser
         if let user = user
         {
             userID = user.uid
-    
-        let itemUploadRef = Storage.storage().reference(withPath: "users/itemImage/\(userID).jpg")
-        let billUploadRef = Storage.storage().reference(withPath: "users/billImage/\(userID).jpg")
+            
+            
+            
+            db.collection("users/\(userID)/\(selectedCategory!.categoryTitle!)").addDocument(data:
+            
+                                                                                                        
+             ["Name": newItem.itemName,
+             "Address" : newItem.itemAdress,
+             "PurchasedDate" : newItem.purchasedDate!,
+             "WarrentyPeriod" : newItem.warrentyPeriod!,
+             "Notified" : newItem.notified! ,
+             "Notes" : newItem.notes!,
+             "Will Expire on": newItem.futureDate!,
+             "Days Left": newItem.daysLeft!
+             ]) { error in
+            if let e = error
+            { print("Hello my name is BISHAL FIND me")
+                print("Error while upload your data - \(e.localizedDescription)")
+            }
+            else
+            {
+                print("Uploaded your data ")
+                self.dismiss = self.dismiss + 1
+            }
+        }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            let itemUploadRef = Storage.storage().reference(withPath: "users/itemImage/\(userID)/\(newItem.itemName).jpg")
+            let billUploadRef = Storage.storage().reference(withPath: "users/billImage/\(userID)/\(newItem.itemName).jpg")
         guard let imageData = itemImageView.image?.jpegData(compressionQuality: 0.75) else {return }
         guard let billImageData = billImageView.image?.jpegData(compressionQuality: 0.75) else {return}
         let uploadMetadata = StorageMetadata.init()
@@ -223,41 +302,13 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         }
            
          
-        newItem.itemName = nameTextField.text ?? ""
-        newItem.itemAdress = addressTextField.text ?? ""
-        newItem.notes = notesTextField.text
-        newItem.notified = notify
-        newItem.purchasedDate = dateTextField.text
-        let text = warrentyTextField.text
-        newItem.warrentyPeriod = Int(text ?? "0")
-            selectedCategory?.itemArray?.append(newItem)
-         
-            db.collection("users/\(userID)/\(selectedCategory!.categoryTitle!)").addDocument(data:
-            
-                                                                                                        
-             ["Name": newItem.itemName,
-             "Address" : newItem.itemAdress,
-             "PurchasedDate" : newItem.purchasedDate!,
-             "WarrentyPeriod" : newItem.warrentyPeriod!,
-             "Notified" : newItem.notified! ,
-             "Notes" : newItem.notes!
-             ]) { error in
-            if let e = error
-            { print("Hello my name is BISHAL FIND me")
-                print("Error while upload your data - \(e.localizedDescription)")
-            }
-            else
-            {
-                print("Uploaded your data ")
-                self.dismiss = self.dismiss + 1
-            }
-        }
-            
+       
             
         }
         
       
 }
+    
     
 }
 

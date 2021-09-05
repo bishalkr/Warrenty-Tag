@@ -46,6 +46,7 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         categoryArray = [mobileCell,laptopCell,bandCell,earphoneCell,cameraCell,homeCell,electroniCell,bagCell,medicinesCell]
         tableView.dataSource = self
         tableView.delegate = self
+        navigationItem.hidesBackButton = true
         tableView.reloadData()
         
 
@@ -86,5 +87,8 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
 }
