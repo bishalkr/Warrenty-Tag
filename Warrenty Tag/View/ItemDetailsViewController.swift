@@ -137,16 +137,16 @@ class ItemDetailsViewController: UIViewController{
                                 {
         
                                     DispatchQueue.main.async {
-                                        self.nameLabel.text = "Name: \(itemName)"
-                                        self.addressLabel.text = "Purchased in: \(itemAdress)"
-                                        self.daysLeftLabel.text = ("Days Left: \(String(describing: self.totalDaysLeft!))" + " " + "days")
-                                        self.purchasedDataLabel.text = "Purchased on: \(itemPurchasedDate)"
-                                        self.notifyBefore.text = "Notify Before: \(notifyBefore)"
+                                        self.nameLabel.text = itemName
+                                        self.addressLabel.text = itemAdress
+                                        self.daysLeftLabel.text = String(describing: self.totalDaysLeft!) +  " " + "days"
+                                        self.purchasedDataLabel.text = itemPurchasedDate
+                                        self.notifyBefore.text = notifyBefore
                                         self.notesLabel.text = itemNotes
-                                        self.willExpireLabel.text = "Will Expire on: \(willExpire)"
-                                        self.warrentyPeriod.text = "Warrenty Period: \(itemWarrenty)"
+                                        self.willExpireLabel.text = willExpire
+                                        self.warrentyPeriod.text = String(itemWarrenty)
                                         self.progressBar.progress = self.progressBarStatus!
-                                        if self.progressBar.progress <= 0.35
+                                        if self.progressBar.progress <= 0.30
                                         {
                                             self.progressBar.progressTintColor = UIColor.systemRed
                                         }
@@ -163,6 +163,20 @@ class ItemDetailsViewController: UIViewController{
             
             }
         }
+    
+    @IBAction func editButtonPressed(_ sender: Any) {
+        
+        
+        
+      
+    }
+    
+    
+    
+    
+    
+    
+    
     }
                 
     

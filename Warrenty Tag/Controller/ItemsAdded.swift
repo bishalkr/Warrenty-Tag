@@ -13,5 +13,6 @@ struct ItemsAdded
     let warrentyExpire: String
     let timeLeft: Int
     let progressStatus : Float
+    let docID : String
     
 }

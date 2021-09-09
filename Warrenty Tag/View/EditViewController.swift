@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import UserNotifications
 
 class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var selectedCategory : Category?
@@ -21,6 +22,15 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     let imagePicker = UIImagePickerController()
     var newItem = Items()
     var enteredDate = Date()
+    
+    var center = UNUserNotificationCenter.current()
+    let content = UNMutableNotificationContent()
+    
+    
+    @IBOutlet weak var thirtyDaysButton: UIButton!
+    @IBOutlet weak var threedaysButton: UIButton!
+    
+    @IBOutlet weak var sevenDaysButton: UIButton!
     
     @IBOutlet weak var billUploadProgressBar: UIProgressView!
     @IBOutlet weak var imageUploadProgressBar: UIProgressView!
@@ -87,6 +97,9 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             
         }
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+    }
     
     @IBAction func addButtonPressed(_ sender: UIButton) {
         let alert = UIAlertController(title: "Add Photo", message: nil, preferredStyle: .actionSheet)
@@ -128,7 +141,35 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     }
     
     @IBAction func notifiedButton(_ sender: UIButton) {
+        
         notify = sender.currentTitle
+        if notify == "3 days"
+        {
+            threedaysButton.isSelected = true
+            sevenDaysButton.isSelected = false
+            thirtyDaysButton.isSelected = false
+            
+        }
+        else if notify == "7 days"
+        {
+            threedaysButton.isSelected = false
+            sevenDaysButton.isSelected = true
+            thirtyDaysButton.isSelected = false
+        }
+        else if notify == "30 days"
+        {
+            threedaysButton.isSelected = false
+            sevenDaysButton.isSelected = false
+            thirtyDaysButton.isSelected = true
+        }
+  
+        center.requestAuthorization(options: [.alert,.badge,.sound]) { (granted, error) in
+            if let e = error{
+            print("Error in registering notifcations \(e.localizedDescription)")
+            }
+        }
+        
+        
        
     }
     
@@ -194,7 +235,53 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         newItem.futureDate = formatter.string(from: futureDate)
         newItem.daysLeft = daysBetween(start: enteredDate, end: futureDate)
             
+        
+        
+        
+        
+        
+        
+       
+        content.title = "Warrenty Expire soon"
+        content.body = "Your \(newItem.itemName) warrenty is going to expire in \(notify!) "
+            content.sound = .default
+            var notifyDatecomponent = DateComponents()
+       
+        if notify == "3 days" {
+            notifyDatecomponent.day = newItem.daysLeft! - 3
         }
+            if notify == "7 days"
+            {
+                notifyDatecomponent.day = newItem.daysLeft! - 7
+            }
+            
+            if notify == "30 days"
+            {
+                notifyDatecomponent.day = newItem.daysLeft! - 30
+            }
+            
+           
+            if let notifiedDate = Calendar.current.date(byAdding: notifyDatecomponent, to: enteredDate) {
+            let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: notifiedDate)
+                print("BIMSHAL JUMMAR - \(dateComponents)")
+               
+            
+        let trigger =  UNCalendarNotificationTrigger(dateMatching: dateComponents  , repeats: true)
+                 //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+          let uuidString = UUID().uuidString
+          let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+                print("Hello I am bishal you knwo mw I know that")
+        center.add(request) { (error) in
+            if let e = error
+            {
+                print("Error in scheduling the request - \(e.localizedDescription)")
+            }
+        }
+            }
+        }
+        
+        
+        
         
         
         

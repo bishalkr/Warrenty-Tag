@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class CategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -76,7 +77,9 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      
         performSegue(withIdentifier: "itemSegue", sender: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -87,8 +90,19 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    
+
+    @IBAction func LogoutButtonClicked(_ sender: Any){
+        let firebaseAuth = Auth.auth()
+    do {
+      try firebaseAuth.signOut()
+        navigationController?.popToRootViewController(animated: true)
+    } catch let signOutError as NSError {
+      print ("Error signing out: %@", signOutError)
+    }
+       
+    }
+  
+        
     }
 
-}

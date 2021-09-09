@@ -11,14 +11,13 @@ import Firebase
 
 class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
+    @IBOutlet weak var editButton: UIBarButtonItem!
     let db = Firestore.firestore()
     var selectedCategory : Category?
     @IBOutlet weak var tableView: UITableView!
     var itemsAdded: [ItemsAdded] = []
     var dateFormatter = DateFormatter()
-   
     var currentDate = Date()
-   
     var selectedItem: String?
     var totalDaysLeft: Int?
     var progressBarStatus: Float?
@@ -59,12 +58,12 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     for doc in snapShotDocuments
                     {
                         let data = doc.data()
-                        
+                        let docID = doc.documentID
                         if let itemName = data["Name"] as? String, let willExpire = data["Will Expire on"] as? String, let daysLeft = data["Days Left"] as? Int
                         {  self.dateFormatter.dateFormat = "dd/MM/yy"
                            if let futureDate = self.dateFormatter.date(from: willExpire)
                            {
-                            let newItemAdded = ItemsAdded(itemName: itemName, warrentyExpire: willExpire, timeLeft: self.daysBetween(start: self.currentDate, end: futureDate), progressStatus: Float((self.daysBetween(start: self.currentDate, end: futureDate))) / Float(daysLeft))
+                            let newItemAdded = ItemsAdded(itemName: itemName, warrentyExpire: willExpire, timeLeft: self.daysBetween(start: self.currentDate, end: futureDate), progressStatus: Float((self.daysBetween(start: self.currentDate, end: futureDate))) / Float(daysLeft), docID: docID)
                            
                             
                             self.itemsAdded.append(newItemAdded)
@@ -127,7 +126,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.warrentyDateLabel.text = itemsAdded[indexPath.row].warrentyExpire
         cell.warrentyTimeLabel.text = (String(itemsAdded[indexPath.row].timeLeft) + " " + "days")
         cell.progressBar.progress = itemsAdded[indexPath.row].progressStatus
-        if cell.progressBar.progress <= 0.35
+        if cell.progressBar.progress <= 0.30
         {
             cell.progressBar.progressTintColor = UIColor.systemRed
         }
@@ -143,6 +142,55 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         progressBarStatus = itemsAdded[indexPath.row].progressStatus
         
         performSegue(withIdentifier: "gotoItemSegue", sender: self)
+    }
+    
+    
+    
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let itemSelected = itemsAdded[sourceIndexPath.row]
+        itemsAdded.remove(at: sourceIndexPath.row)
+        itemsAdded.insert(itemSelected, at: destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let user = Auth.auth().currentUser
+        if let user = user{
+            let userID = user.uid
+          let path = db.collection("users/\(userID)/\(selectedCategory!.categoryTitle!)").document(itemsAdded[indexPath.row].docID)
+            tableView.beginUpdates()
+            itemsAdded.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            path.delete { error in
+                if let e = error
+                {
+                    print("Error while deleting document - \(e.localizedDescription)")
+                }
+            }
+            tableView.endUpdates()
+            
+        }
+        
+    }
+    
+    @IBAction func editButtonClicked(_ sender: Any) {
+        tableView.isEditing = !tableView.isEditing
+        
+        if tableView.isEditing
+        {
+            editButton.title = "Done"
+        }
+        else
+        {
+            editButton.title = "Edit"
+        }
+        
+        
     }
     
     
