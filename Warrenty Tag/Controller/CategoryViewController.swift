@@ -63,6 +63,7 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         let alert = UIAlertController(title: "Add new Category", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             let newCategory = Category(categoryTitle: textfield.text ?? "", categorySymbol: UIImage(systemName: "heart.fill")! , dateOfCategoryCreation: Date())
+            
             self.categoryArray?.append(newCategory)
             self.tableView.reloadData()
         }
@@ -72,6 +73,7 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
         alert.addAction(action)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     

@@ -13,11 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadMainScreen()
-        
-        
-        
-        
-    }
+       }
+    
     func loadMainScreen()
     {
         if Auth.auth().currentUser != nil

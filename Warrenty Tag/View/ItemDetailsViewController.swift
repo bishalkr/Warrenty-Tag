@@ -20,6 +20,7 @@ class ItemDetailsViewController: UIViewController{
     @IBOutlet weak var purchasedDataLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var itemImage: UIImageView!
+    let billImageView = UIImageView(frame: CGRect(x: 20, y: 50, width: 250, height: 230))
     let db = Firestore.firestore()
     var selectedCategory : Category?
     var selectedItem: String?
@@ -64,6 +65,23 @@ class ItemDetailsViewController: UIViewController{
         }
     }
     
+    @objc func onTap()
+    {
+        dismiss(animated: true, completion: nil)
+     
+       if let items = billImageView.image
+       {
+        let ac = UIActivityViewController(activityItems: [items], applicationActivities: nil)
+        
+        
+        
+       
+        present(ac, animated: true, completion: nil)
+       }
+     
+        
+        
+    }
     
     @IBAction func downloadBill(_ sender: UIButton) {
         
@@ -87,20 +105,27 @@ class ItemDetailsViewController: UIViewController{
                     
                     let alert = UIAlertController(title: "Your BILL", message: nil, preferredStyle: .alert)
                   
-                    let imageView = UIImageView(frame: CGRect(x: 20, y: 50, width: 250, height: 230))
-                    imageView.image = UIImage(data: data)
+                   
+                    self.billImageView.image = UIImage(data: data)
                     let action = UIAlertAction(title: "Close", style: .cancel, handler: nil)
-                    alert.view.addSubview(imageView)
+                    alert.view.addSubview(self.billImageView)
+                    
                  let height = NSLayoutConstraint(item: alert.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 320)
                  let width = NSLayoutConstraint(item: alert.view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
                     
                alert.view.addConstraint(height)
               alert.view.addConstraint(width)
+                    
+                
                    
                     
                     alert.addAction(action)
                     
+                    
                     self.present(alert, animated: true, completion: nil)
+                    self.billImageView.isUserInteractionEnabled = true
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.onTap))
+                    self.billImageView.addGestureRecognizer(tap)
                     
                   
                    
@@ -163,6 +188,11 @@ class ItemDetailsViewController: UIViewController{
             
             }
         }
+    
+   
+    
+    
+   
     
     @IBAction func editButtonPressed(_ sender: Any) {
         
