@@ -50,7 +50,7 @@ Warrenty Tag uses Firebase Authenifications and firestore for cloud storage so t
 - iOS 14 or above 
 - Swift 5
 
-# Pods 
+# Dependencies
  ```
  pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
@@ -58,6 +58,18 @@ pod 'Firebase/Storage'
 pod 'IQKeyboardManagerSwift'
 
 ```
+
+# Contact 
+
+In case of any queries or FAQs contact me freely 
+
+BISHAL KUMAR 
+
+Email - bishal612000@gmail.com
+
+[Linkedln](https://www.linkedin.com/in/bishal-kumar-a377421a0/) Profile<img width="359" alt="image" src="https://user-images.githubusercontent.com/86237119/133206380-47f1a5f8-65d7-4e70-a180-203fdfc5d2a2.png">
+
+
 
 
 
