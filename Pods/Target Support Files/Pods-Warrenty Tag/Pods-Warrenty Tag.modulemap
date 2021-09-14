@@ -1,0 +1,6 @@
+framework module Pods_Warrenty_Tag {
+  umbrella header "Pods-Warrenty Tag-umbrella.h"
+
+  export *
+  module * { export * }
+}
