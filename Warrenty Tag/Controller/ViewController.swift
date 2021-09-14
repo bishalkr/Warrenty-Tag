@@ -11,13 +11,16 @@ import Firebase
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        
         loadMainScreen()
+        super.viewDidLoad()
+      
        }
     
     func loadMainScreen()
     {
         if Auth.auth().currentUser != nil
+        
         {  DispatchQueue.main.async {
             self.performSegue(withIdentifier: "loadingMainScreen", sender: self)
         }

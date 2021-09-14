@@ -13,6 +13,7 @@ import UIKit
     var categorySymbol: UIImage?
     var dateOfCategoryCreation : Date?
     var itemArray : [Items]?
+    var isEditable : Bool = true
     
     
  }

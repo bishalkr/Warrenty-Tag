@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ItemViewController: UIViewController {
    
     @IBOutlet weak var editButton: UIBarButtonItem!
     let db = Firestore.firestore()
@@ -21,19 +21,28 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var selectedItem: String?
     var totalDaysLeft: Int?
     var progressBarStatus: Float?
+    let center = UNUserNotificationCenter.current()
     
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         loadtableView()
+       
+        center.requestAuthorization(options: [.alert,.badge,.sound]) { (granted, error) in
+            if let e = error{
+            print("Error in registering notifcations \(e.localizedDescription)")
+            }
+        }
         
         tableView.register(UINib(nibName: "ItemViewCell", bundle: nil), forCellReuseIdentifier:"itemCell")
         
         
     }
     
+    //MARK: - LOAD TABLE VIEW FROM FIREBASE
     
     func loadtableView()
     {
@@ -47,6 +56,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
                 if let e = error
                 {
+                 
+                    let alert = UIAlertController(title: "Error!", message: "Couldn't load details due to an error", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
                    
                     print("Error while loading the data - \(e.localizedDescription)")
                 }
@@ -59,13 +71,49 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     {
                         let data = doc.data()
                         let docID = doc.documentID
-                        if let itemName = data["Name"] as? String, let willExpire = data["Will Expire on"] as? String, let daysLeft = data["Days Left"] as? Int
+                        if let itemName = data["Name"] as? String, let willExpire = data["Will Expire on"] as? String, let daysLeft = data["Days Left"] as? Int, let notify = data["Notified"] as? String, let notifyDate = data["Notify Date"] as? String
                         {  self.dateFormatter.dateFormat = "dd/MM/yy"
                            if let futureDate = self.dateFormatter.date(from: willExpire)
                            {
                             let newItemAdded = ItemsAdded(itemName: itemName, warrentyExpire: willExpire, timeLeft: self.daysBetween(start: self.currentDate, end: futureDate), progressStatus: Float((self.daysBetween(start: self.currentDate, end: futureDate))) / Float(daysLeft), docID: docID)
-                           
                             
+                            
+                            let content = UNMutableNotificationContent()
+                            content.title = "Warrenty Expire Soon"
+                            content.body = "Your \(itemName)'s warrenty is going to expire in \(notify)"
+                            content.sound = .default
+                            
+                            var notifyDatecomponent = DateComponents()
+                       
+                        if notify == "3 days" {
+                            notifyDatecomponent.day = daysLeft - 3
+                        }
+                            if notify == "7 days"
+                            {
+                                notifyDatecomponent.day = daysLeft - 7
+                            }
+                            
+                            if notify == "30 days"
+                            {
+                                notifyDatecomponent.day = daysLeft - 30
+                            }
+                            
+                            if let notifyDate = self.dateFormatter.date(from: notifyDate)
+                            {
+                                let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: notifyDate)
+                                
+                            let trigger =  UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+                              let uuidString = itemName
+                              let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+                                
+                                self.center.add(request) { (error) in
+                                if let e = error
+                                {
+                                    print("Error in scheduling the request - \(e.localizedDescription)")
+                                }
+                            }
+                                
+                            }
                             self.itemsAdded.append(newItemAdded)
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
@@ -76,10 +124,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                    }
                 }
             }
-         
-    
         }
     }
+    
     func daysBetween(start: Date, end: Date) -> Int {
             return Calendar.current.dateComponents([.day], from: start, to: end).day!
         
@@ -89,7 +136,6 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
        performSegue(withIdentifier: "additemSegue", sender: self)
          
-        
     }
      
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -110,13 +156,32 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                   
         }
        
+    @IBAction func editButtonClicked(_ sender: Any) {
+        tableView.isEditing = !tableView.isEditing
+        
+        if tableView.isEditing
+        {
+            editButton.title = "Done"
+        }
+        else
+        {
+            editButton.title = "Edit"
+        }
+            
+    }
+
+}
+//MARK: - TABLE VIEW AND DELEGATE METHODS
+
+extension ItemViewController : UITableViewDataSource, UITableViewDelegate
+{
     
     
-   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return itemsAdded.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -132,8 +197,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         return  cell
-        
-    }
+        }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -143,8 +208,6 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         performSegue(withIdentifier: "gotoItemSegue", sender: self)
     }
-    
-    
     
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -158,13 +221,18 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         itemsAdded.insert(itemSelected, at: destinationIndexPath.row)
     }
     
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let user = Auth.auth().currentUser
         if let user = user{
             let userID = user.uid
           let path = db.collection("users/\(userID)/\(selectedCategory!.categoryTitle!)").document(itemsAdded[indexPath.row].docID)
             tableView.beginUpdates()
+            let name = itemsAdded[indexPath.row].itemName
+            center.removePendingNotificationRequests(withIdentifiers: [name])
             itemsAdded.remove(at: indexPath.row)
+            
+        
             tableView.deleteRows(at: [indexPath], with: .fade)
             path.delete { error in
                 if let e = error
@@ -178,22 +246,6 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    @IBAction func editButtonClicked(_ sender: Any) {
-        tableView.isEditing = !tableView.isEditing
-        
-        if tableView.isEditing
-        {
-            editButton.title = "Done"
-        }
-        else
-        {
-            editButton.title = "Edit"
-        }
-        
-        
-    }
     
-    
-   
-
 }
+

@@ -7,17 +7,19 @@
 
 import Foundation
 import UIKit
+
 struct Items
 {
-    var itemImage: UIImage?
-    var itemName: String = " "
-    var itemAdress: String = " "
+//    var itemImage: UIImage?
+    var itemName: String?
+    var itemAdress: String?
     var purchasedDate: String?
     var futureDate : String?
     var warrentyPeriod: Int?
     var notes: String?
     var notified: String?
     var daysLeft:Int?
+    var notifyDate: String?
     
     
     
