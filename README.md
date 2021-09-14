@@ -12,6 +12,9 @@ Warrenty Tag uses Firebase Authenifications and firestore for cloud storage so t
 
  <img width="359" alt="Screenshot 2021-09-14 at 9 24 17 AM" src="https://user-images.githubusercontent.com/86237119/133192619-b7c95e50-680d-4310-9f24-95e4c18f9cb9.png"> <img width="359" alt="Screenshot 2021-09-14 at 9 24 44 AM" src="https://user-images.githubusercontent.com/86237119/133192661-c30ae570-e926-44ba-a09e-33c81a098da3.png">  
  <img width="359" alt="Screenshot 2021-09-14 at 9 25 26 AM" src="https://user-images.githubusercontent.com/86237119/133192869-f0271ea3-455f-41f3-b158-036748cf6da7.png"> <img width="359" alt="Screenshot 2021-09-14 at 9 24 58 AM" src="https://user-images.githubusercontent.com/86237119/133193062-aa69e569-dfd0-4a83-885c-0b181b36bff3.png">
+ <img width="359" alt="Screenshot 2021-09-14 at 9 25 08 AM" src="https://user-images.githubusercontent.com/86237119/133211464-74655415-5690-467d-94f9-bf5a9a3c71dc.png">
+<img width="359" alt="Screenshot 2021-09-14 at 12 11 50 PM" src="https://user-images.githubusercontent.com/86237119/133211524-0797565d-d130-4530-9a3f-4083d64780c1.png">
+
 
 # Features
 - Light/Dark mode compatible
@@ -67,7 +70,7 @@ BISHAL KUMAR
 
 Email - bishal612000@gmail.com
 
-[Linkedln] (https://www.linkedin.com/in/bishal-kumar-a377421a0/)  
+[Linkedln] (https://www.linkedin.com/in/bishal-kumar-a377421a0/) Profile
 
 
 
