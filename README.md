@@ -16,7 +16,8 @@ Warrenty Tag uses Firebase Authenifications and firestore for cloud storage so t
 # Features
 - Light/Dark mode compatible
 - Compatabile with all different iPhone screen sizes currently available 
-- Implemention of UITableView and UIImagePickerController
+- Implementation of UITableView and UIImagePickerController
+- Implementation of IQKeyboardManagerSwift with the help of CocoaPods
 - Implementation of Google Firebase for Auhtentification
 - Implementation of Cloud Firestore & Cloud Storage for storing data and images
 - Calculating and give visual feedback by desinging custom cell.xib file and UIProgessView
@@ -48,6 +49,16 @@ Warrenty Tag uses Firebase Authenifications and firestore for cloud storage so t
 - Xcode 12.0 or above 
 - iOS 14 or above 
 - Swift 5
+
+# Pods 
+ ```
+ pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
+pod 'Firebase/Storage'
+pod 'IQKeyboardManagerSwift'
+
+```
+
 
 
 
