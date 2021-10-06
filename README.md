@@ -68,9 +68,9 @@ In case of any queries or FAQs contact me freely
 
 BISHAL KUMAR 
 
-Email - bishal612000@gmail.com
+[Email](bishal612000@gmail.com)
 
-[Linkedln] (https://www.linkedin.com/in/bishal-kumar-a377421a0/) Profile
+[Linkedln](https://www.linkedin.com/in/bishal-kumar-a377421a0/)
 
 
 
